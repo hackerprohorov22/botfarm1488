@@ -9,7 +9,7 @@ class AutoFarmMod(loader.Module):
     """Auto Farm Bot for Hamster Kombat"""
 
     strings = {
-        "name": "AutoFarm1",
+        "name": "AutoFarm",
         "started": "Auto farm started!",
         "stopped": "Auto farm stopped!"
     }
@@ -42,8 +42,8 @@ class AutoFarmMod(loader.Module):
                         for button in row:
                             if isinstance(button, KeyboardButtonCallback):
                                 try:
-                                    # Нажимаем кнопку "Играть в 1 клик 🐹"
-                                    if 'Играть в 1 клик 🐹' in button.text:
+                                    # Нажимаем кнопку "Играть в 1 клик 🐹" или "Play in 1 click 🐹"
+                                    if 'Играть в 1 клик 🐹' in button.text or 'Play in 1 click 🐹' in button.text:
                                         await self._client(GetBotCallbackAnswerRequest(
                                             peer=msg.peer_id,
                                             msg_id=msg.id,
@@ -56,4 +56,3 @@ class AutoFarmMod(loader.Module):
                                     return
         except Exception as e:
             await utils.answer(message, f"Failed to start game or farm: {e}")
-
