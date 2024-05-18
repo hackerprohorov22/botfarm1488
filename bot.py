@@ -16,6 +16,7 @@ class AutoFarmMod(loader.Module):
 
     async def client_ready(self, client, db):
         self._client = client
+        self._clicked_button = False  # Флаг для отслеживания нажатия кнопки
 
     async def startfarmcmd(self, message: Message):
         """Start auto-farming"""
@@ -32,8 +33,10 @@ class AutoFarmMod(loader.Module):
 
     async def _farm(self, message: Message):
         try:
-            # Отправляем команду для запуска игры
-            await self._client.send_message('@hamster_kombat_bot', '/start')
+            if not self._clicked_button:  # Проверяем, была ли уже нажата кнопка
+                # Отправляем команду для запуска игры
+                await self._client.send_message('@hamster_kombat_bot', '/start')
+                self._clicked_button = True  # Устанавливаем флаг нажатия кнопки
 
             # Ждем сообщения с кнопками
             async for msg in self._client.iter_messages('@hamster_kombat_bot', limit=10):
