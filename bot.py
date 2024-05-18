@@ -7,28 +7,28 @@ import asyncio
 @loader.tds
 class AutoFarmMod(loader.Module):
     """Auto Farm Bot for Hamster Kombat"""
-    strings = {"name": "AutoFarm", "started": "Auto farm started!", "stopped": "Auto farm stopped!"}
 
-    def __init__(self):
-        self._running = False
+    strings = {
+        "name": "AutoFarm1",
+        "started": "Auto farm started!",
+        "stopped": "Auto farm stopped!"
+    }
 
     async def client_ready(self, client, db):
         self._client = client
 
-    @loader.command()
-    async def startfarm(self, message: Message):
+    async def startfarmcmd(self, message: Message):
         """Start auto-farming"""
         self._running = True
-        await utils.answer(message, self.strings("started", message))
+        await utils.answer(message, self.strings["started"])
         while self._running:
             await self._farm(message)
             await asyncio.sleep(10)  # Интервал между действиями (в секундах)
 
-    @loader.command()
-    async def stopfarm(self, message: Message):
+    async def stopfarmcmd(self, message: Message):
         """Stop auto-farming"""
         self._running = False
-        await utils.answer(message, self.strings("stopped", message))
+        await utils.answer(message, self.strings["stopped"])
 
     async def _farm(self, message: Message):
         try:
@@ -56,3 +56,4 @@ class AutoFarmMod(loader.Module):
                                     return
         except Exception as e:
             await utils.answer(message, f"Failed to start game or farm: {e}")
+
