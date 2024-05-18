@@ -15,7 +15,7 @@ class AutoFarmMod(loader.Module):
     async def client_ready(self, client, db):
         self._client = client
 
-    @loader.command()
+    @loader.command
     async def startfarm(self, message: Message):
         """Start auto-farming"""
         self._running = True
@@ -24,7 +24,7 @@ class AutoFarmMod(loader.Module):
             await self._farm(message)
             await asyncio.sleep(10)  # Интервал между действиями (в секундах)
 
-    @loader.command()
+    @loader.command
     async def stopfarm(self, message: Message):
         """Stop auto-farming"""
         self._running = False
